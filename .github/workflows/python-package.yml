@@ -29,19 +29,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install and Test
       run: |
         python -m pip install --upgrade pip poetry
         poetry install
-    - name: Static Analysis Check
-      run: |
         mypy .
-    - name: Black
-      run: |
         black --check .
-    - name: Isort
-      run: |
         isort --check .
-    - name: Test with pytest
-      run: |
         pytest
