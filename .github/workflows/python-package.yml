@@ -35,6 +35,11 @@ jobs:
         poetry install
 
   static_code_analysis:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     needs: setup
     steps:
     - name: Static Analysis Check
@@ -42,6 +47,11 @@ jobs:
         mypy .
 
   style_check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     needs: setup
     - name: Black
       run: |
@@ -51,6 +61,11 @@ jobs:
         isort --check .
 
   test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     needs: setup
     - name: Test with pytest
       run: |
