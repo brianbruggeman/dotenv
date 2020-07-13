@@ -5,18 +5,15 @@ name: Python package
 
 on:
   push:
-    tags:
-      - '**'
     branches:
-      - stable
-      - integration
-      - 'release/**'
+    - stable
+    - integration
+    - 'release/**'
   pull_request:
     branches:
-      - stable
-      - integration
-      - 'release/**'
-      - '**'
+    - stable
+    - integration
+    - 'release/**'
 
 jobs:
   build:
