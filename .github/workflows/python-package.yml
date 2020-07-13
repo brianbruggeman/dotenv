@@ -17,19 +17,29 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Setup python
         run: |
           python -m pip install --upgrade pip poetry
+          mkdir -p ~/.cache/virtualenvs/
+      - name: Setup virtualenv
+        run: |
+          python -m pip install --upgrade pip poetry
+          mkdir -p ~/.cache/virtualenvs/
+          python -m venv ~/.cache/virtualenvs/dotenv
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           poetry install --no-root
       - name: Install package
         run: |
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           poetry install --no-dev
       - name: Install extras
         run: |
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           poetry install
           poetry install -E all
       - name: Show me the money
         run: |
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           python -c "import mypy; print(mypy.__file__)"
 
   test:
