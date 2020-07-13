@@ -3,7 +3,7 @@ name: Python package
 on: [push]
 
 jobs:
-  build:
+  setup:
 
     runs-on: ubuntu-latest
     strategy:
@@ -44,7 +44,7 @@ jobs:
           poetry install
 
   static-analysis:
-    needs: build
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -77,7 +77,7 @@ jobs:
           mypy  .
 
   style:
-    needs: build
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -115,7 +115,7 @@ jobs:
           isort --check .
 
   test:
-    needs: build
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
