@@ -53,6 +53,7 @@ jobs:
         python-version: [3.8]
 
     needs: setup
+    steps:
     - name: Black
       run: |
         black --check .
@@ -67,6 +68,7 @@ jobs:
         python-version: [3.8]
 
     needs: setup
+    steps:
     - name: Test with pytest
       run: |
         pytest
