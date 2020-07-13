@@ -1,4 +1,5 @@
 # dotenv
+![Python package](https://github.com/brianbruggeman/dotenv/workflows/Python%20package/badge.svg)
 
 Yet another dotenv package
 
