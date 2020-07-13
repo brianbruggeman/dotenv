@@ -79,10 +79,10 @@ jobs:
 
       - name: Install packages
         run: |
-          . ~/virtualenvs/dotenv/bin/activate
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           poetry install
 
       - name: Test with pytest
         run: |
-          . /home/runner/.cache/virtualenvs/dotenv/bin/activate
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           pytest
