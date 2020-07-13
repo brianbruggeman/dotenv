@@ -11,26 +11,37 @@ jobs:
         python-version:
           - 3.8
 
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-python-modules
+        with:
+          # cache files are stored in `~/.cache` on Linux/macOS
+          path: ~/.cache/virtualenvs/dotenv
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       - name: Prepare environment
         run: |
           python -m pip install --upgrade pip poetry
-          mkdir -p /home/runner/.cache/virtualenvs/
+          mkdir -p ~/.cache/virtualenvs/
           python -m venv /home/runner/.cache/virtualenvs/dotenv
+
       - name: Install packages
         run: |
-          . /home/runner/.cache/virtualenvs/dotenv/bin/activate
+          . ~/virtualenvs/dotenv/bin/activate
           poetry install
-      - name: Store virtualenv
-        uses: actions/upload-artifact@v1
-        with:
-          name: venv
-          path: /home/runner/.cache/virtualenvs/dotenv
 
   test:
     needs: build
@@ -41,16 +52,37 @@ jobs:
         - 3.8
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Restore virtualenv
-      uses: actions/download-artifact@v1
-      with:
-        name: venv
-    - name: Test with pytest
-      run: |
-        . /home/runner/.cache/virtualenvs/dotenv/bin/activate
-        pytest
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-python-modules
+        with:
+          # cache files are stored in `~/.cache` on Linux/macOS
+          path: ~/.cache/virtualenvs/dotenv
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Prepare environment
+        run: |
+          python -m pip install --upgrade pip poetry
+          mkdir -p ~/.cache/virtualenvs/
+          python -m venv /home/runner/.cache/virtualenvs/dotenv
+
+      - name: Install packages
+        run: |
+          . ~/virtualenvs/dotenv/bin/activate
+          poetry install
+
+      - name: Test with pytest
+        run: |
+          . /home/runner/.cache/virtualenvs/dotenv/bin/activate
+          pytest
