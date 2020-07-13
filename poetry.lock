@@ -366,8 +366,11 @@ optional = false
 python-versions = "*"
 version = "3.7.4.2"
 
+[extras]
+all = []
+
 [metadata]
-content-hash = "7b9ab934ae659046a739fbd944c67d9fb7415bed8dc7b445d9cea24a647d484c"
+content-hash = "3c57c535265e38504e162c8e8dc7290eab85671bd06063a09fa8c2e843e58d37"
 python-versions = "^3.8"
 
 [metadata.files]
