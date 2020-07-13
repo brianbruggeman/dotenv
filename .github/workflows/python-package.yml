@@ -51,8 +51,6 @@ jobs:
       with:
         name: venv
     - name: Test with pytest
-      with:
-        name: homework
       run: |
         . ~/.cache/virtualenvs/dotenv/bin/activate
         pytest
