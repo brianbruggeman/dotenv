@@ -33,42 +33,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip poetry
         poetry install
-
-  static_code_analysis:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
-
-    needs: setup
-    steps:
     - name: Static Analysis Check
       run: |
         mypy .
-
-  style_check:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
-
-    needs: setup
-    steps:
     - name: Black
       run: |
         black --check .
     - name: Isort
       run: |
         isort --check .
-
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
-
-    needs: setup
-    steps:
     - name: Test with pytest
       run: |
         pytest
