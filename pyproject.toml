@@ -19,6 +19,9 @@ pytest-isort = "^1.1.0"
 pytest-xdist = "^1.33.0"
 pytest-mypy = "^0.6.2"
 
+[tool.poetry.extras]
+all = ["black", "isort", "mypy", "coverage", "pytest-cov", "pytest-black", "pytest-isort", "pytest-xdist", "pytest-mypy"]
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
