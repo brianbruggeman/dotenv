@@ -28,6 +28,9 @@ jobs:
         run: |
           poetry install
           poetry install -E all
+      - name: Show me the money
+        run: |
+          python -c "import mypy; print(mypy.__file__)"
 
   test:
     needs: build
