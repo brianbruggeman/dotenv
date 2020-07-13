@@ -22,6 +22,7 @@ jobs:
         python -m pip install --upgrade pip poetry
         pip install mypy isort black pytest pytest-mypy pytest-isort pytest-black
         poetry install
+        pip install .
     - name: Test with pytest
       run: |
         pytest
