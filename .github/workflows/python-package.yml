@@ -40,7 +40,7 @@ jobs:
 
       - name: Install packages
         run: |
-          . ~/virtualenvs/dotenv/bin/activate
+          . ~/.cache/virtualenvs/dotenv/bin/activate
           poetry install
 
   test:
